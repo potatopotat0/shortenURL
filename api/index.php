@@ -15,7 +15,7 @@ if($des == "") {
 } elseif(strpos($des, "ptt.pub") !== false) {
 	$result = array(
 		'code'	=> 514,
-		'msg'	=> "shortenURL does not support creating shortened URL of domain \"" . $des . "\"."
+		'msg'	=> "shortenURL does not support creating shortened URL of link \"" . $des . "\"."
 	);
 } elseif(curl_errno($ch)) {
 	$result = array(
