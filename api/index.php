@@ -1,6 +1,7 @@
 <?php
+ini_set('memory_limit', '536870912');
 header("Content-type: text/plain");
-$path = dechex((time() * rand()) % 16777213);
+$path = dechex((time() * rand()) % 15658736 + 1118481);
 $des = $_GET['url'];
 $ch = curl_init($des);
 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
@@ -11,7 +12,6 @@ if($des == "") {
 		'code'	=> -1,
 		'msg'	=> "No URL to be shortened."
 	);
-	die(json_encode($result));
 } elseif(strpos($des, "ptt.pub") !== false) {
 	$result = array(
 		'code'	=> 514,
@@ -23,12 +23,12 @@ if($des == "") {
 		'msg'	=> "The URL to be shortened does not exsit."
 	);
 } else {
-	if(!(strpos($des, "http://") !== false) || !(strpos($des, "https://") !== false)) {
+	if(!(strpos($des, "http://") !== false) && !(strpos($des, "https://") !== false)) {
 		$des = "https://" . $des;
 	}
 	mkdir("../" . $path, 0777);
 	$resfile = fopen("../" . $path . "/index.htm", "w") or die("Unable to create file.");
-	$content = "<!DOCTYPE html>\n<html>\n<head>\n<title>Redirecting...</title>\n</head>\n<body>\n<script>\n!function () {window.location.replace('" . $des . "');}()\n</script>\n</body>\n</html>";
+	$content = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>Redirecting...</title>\n</head>\n<body>\n<script>\n!function () {window.location.replace('" . $des . "');}()\n</script>\n</body>\n</html>";
 	fwrite($resfile, $content);
 	$result = array(
 		'code'	=> 114,
