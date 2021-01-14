@@ -1,4 +1,8 @@
 <?php
+/**
+ * Short links API
+ * Author: potatopotat0(https://intoyour.space)
+ */
 ini_set('memory_limit', '536870912');
 header("Content-type: text/plain");
 $path = dechex((time() * rand()) % 15658736 + 1118481);
@@ -20,7 +24,7 @@ if($des == "") {
 } elseif(curl_errno($ch)) {
 	$result = array(
 		'code'	=> 404,
-		'msg'	=> "The URL to be shortened does not exsit."
+		'msg'	=> "Cannot connect to the target server."
 	);
 } else {
 	if(!(strpos($des, "http://") !== false) && !(strpos($des, "https://") !== false)) {
@@ -28,7 +32,7 @@ if($des == "") {
 	}
 	mkdir("../" . $path, 0777);
 	$resfile = fopen("../" . $path . "/index.htm", "w") or die("Unable to create file.");
-	$content = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>Redirecting...</title>\n</head>\n<body>\n<script>\n!function () {window.location.replace('" . $des . "');}()\n</script>\n</body>\n</html>";
+	$content = "<script>!function(){window.location.replace('" . $des . "');}()</script>";
 	fwrite($resfile, $content);
 	$result = array(
 		'code'	=> 114,
