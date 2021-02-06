@@ -7,6 +7,12 @@ a:active {color: black; text-decoration: none;}
 a.linkTxt:hover {color: rgba(135, 135, 135, .75) !important;}
 a.linkImg {opacity: 1;}
 a.linkImg:hover {opacity: .65;}
-form.urlForm {
+#urlForm {
 	top: translate(50%, 50%);
+}
+footer {
+	width: fit-content;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
 }

@@ -4,7 +4,7 @@
  * Author: potatopotat0(https://intoyour.space)
  */
 ini_set('memory_limit', '536870912');
-header("Content-type: text/plain");
+header("Content-type: text/json");
 $path = dechex((time() * rand()) % 15658736 + 1118481);
 $des = $_GET['url'];
 $ch = curl_init($des);
