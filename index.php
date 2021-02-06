@@ -29,7 +29,7 @@
 	</form><br>
 	Copyright <script>document.write(new Date().getFullYear())</script> <a class="linkTxt" href="https://intoyour.space" target="_blank">potatopotat0</a>. All Rights Reserved.<br>
 	<a class="linkImg" href="https://github.com/potatopotat0/shortenURL">
-		<img style="transform: translate(0, -3px);" height="24px" src="https://bloghost-1254352323.cos.ap-hongkong.myqcloud.com/ImageUpload/GitHub_Logo.png" /><span style="font-size: 18px;">REPOSITORY</span>
+		<img style="transform: translate(0, 5px);" height="24px" src="https://bloghost-1254352323.cos.ap-hongkong.myqcloud.com/ImageUpload/GitHub_Logo.png" /><span style="font-size: 18px;">REPOSITORY</span>
 	</a>
 </body>
 </html>
