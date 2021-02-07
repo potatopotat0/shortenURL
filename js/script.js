@@ -6,7 +6,7 @@ function copyInput(elementID) {
 }
 var widgetId;
 var onloadCallback = function () {
-    widgetId = grecaptcha.render('reCaptcha', {
+    widgetId = grecaptcha.render('reCAPTCHA', {
 			    'sitekey': '6Ld_9ksaAAAAAN35oC8MjUlatD-1_wEiIEh1G4h1',
 			    'theme': 'light',
 			    'size': 'normal'
@@ -31,11 +31,11 @@ invalid-input-response	The response parameter is invalid or malformed.
 bad-request				The request is invalid or malformed.
 timeout-or-duplicate	The response is no longer valid: either is too old or has been used previously.
 */
-function reCaptchaVerify() {
+function reCAPTCHAVerify() {
 	return grecaptcha.getResponse(widgetId).length != 0;
 }
 function getURL() {
-	if(reCaptchaVerify()) {
+	if(reCAPTCHAVerify()) {
 		$.get("https://ptt.pub/api/web/", {url: url, key: grecaptcha.getResponse(widgetId)}, function(result){
 			if(result['code'] != 114) {
 				alert(result['msg']);
@@ -47,6 +47,6 @@ function getURL() {
 			}
 		});
 	} else {
-		alert("Please finish Google reCaptcha first");
+		alert("Please finish Google reCAPTCHA first");
 	}
 }
