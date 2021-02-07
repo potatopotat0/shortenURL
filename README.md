@@ -8,7 +8,7 @@ PHP驱动的短网址API。
 
 ## 安装
 
-在数据库中建立 `ShortLinks` table，包含 `shortLink`, `LongLink` 和 `Time` 三个 column。
+在数据库中建立 `links` table，包含 `shortLink`, `longLink` 和 `time` 三个 column。
 
 `./api/index.php` 中填入数据库名、用户名、密码。
 
