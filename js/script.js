@@ -42,8 +42,9 @@ function getURL() {
 				location.reload();
 			} else {
 				document.getElementById('urlInput').value = result['url'];
+				document.getElementById('urlSubmit').setAttribute("style", "transform: translate(15px, 0);");
 				document.getElementById('urlSubmit').setAttribute("onclick", "copyInput(\"urlInput\")");
-				document.getElementById('urlSubmit').innerHTML = "Copy to clipborad";
+				document.getElementById('urlSubmit').innerHTML = "<font size=\"4px\" face=\"Varela Round\">Copy to clipboard</font>";
 			}
 		});
 	} else {

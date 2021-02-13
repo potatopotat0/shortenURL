@@ -18,15 +18,17 @@ PHP驱动的短网址API。
 
 ## 错误码
 
-`-1` ：没有传入网址
+`-1` ：没有传入网址。
 
-`114`：生成成功
+`114`：生成成功。
 
-`514`：不支持生成此域名的短链接
+`514`：不支持生成此域名的短链接。
 
-`404`：进行缩短的网页不存在
+`404`：进行缩短的网页不存在，或无法连接。
 
-`502`：Google reCAPTCHA 验证错误，错误码见 [Google reCAPTCHA 文档](https://developers.google.cn/recaptcha/docs/verify?hl=zh-cn#error_code_reference)
+`501`：数据库连接错误。
+
+`502`：Google reCAPTCHA 验证错误，错误码见 [Google reCAPTCHA 文档](https://developers.google.cn/recaptcha/docs/verify?hl=zh-cn#error_code_reference)。
 
 ## License
 

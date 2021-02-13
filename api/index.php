@@ -5,7 +5,11 @@ $USERNAME = "<USERNAME>";
 $PASSWORD = "<PASSWORD>";
 $DBCONN = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
 if($DBCONN -> connect_error) {
-    die("Database connection failure: " . $DBCONN -> connect_error);
+	$res = array(
+		'msg'  => "Database connection failure: " . $DBCONN -> connect_error,
+		'code' => 501
+	);
+	die(json_encode($result));
 }
 
 
@@ -33,7 +37,7 @@ if(!($_GET['rd'] == "")) {
 		$result = array(
 			'code'	=> 114,
 			'msg'	=> 'succeed',
-			'url'	=> 'https://ptt.pub/api/?rd=' . $row['ShortLink']
+			'url'	=> 'https://ptt.pub/api/?rd=' . $row['shortLink']
 		);
 	} else {
 		$path = dechex((time() * rand()) % 15658736 + 1118481);

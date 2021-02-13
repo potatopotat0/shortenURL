@@ -16,20 +16,34 @@
 	</style>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<script src="./js/script.js"></script>
+	<script src="https://use.fontawesome.com/44714d96e3.js"></script>
 	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=en" async defer></script>
 </head>
 <body>
-	<div id="urlForm">
-		URL: <input id="urlInput" name="url" size="60" type="text" oninput="onInputHandler(event)" onpropertychange="onPropertyChangeHandler(event)"/>
-		<button id="urlSubmit" onclick="getURL()">Submit</button>
-	</div>
-	<div style="width: fit-content; position: relative; left: 45px; top: 6px;" id="reCAPTCHA"></div>
-	<footer>
-		Copyright <script>document.write(new Date().getFullYear())</script> <a class="linkTxt" href="https://intoyour.space" target="_blank">potatopotat0</a>. All Rights Reserved.<br>
+	<header>
+		<img class="siteFavicon" src="https://bloghost-1254352323.cos.ap-hongkong.myqcloud.com/BlogUpload/2020/05/BlogAvatar.jpg" />
 		<a class="linkImg" href="https://github.com/potatopotat0/shortenURL">
 			<img style="transform: translate(0, 5px);" height="24px" src="https://bloghost-1254352323.cos.ap-hongkong.myqcloud.com/ImageUpload/GitHub_Logo.png" /><span style="font-size: 18px;">REPOSITORY</span>
 		</a>
+	</header>
+	<div class="siteHeader">
+		shortenURL
+	</div>
+	<div class="siteViceHeader">
+		A simple short links generator
+	</div>
+	<div class="urlForm" id="urlForm">
+		<div class="inputBox">
+			URL: <input class="urlInputField" id="urlInput" name="url" size="60" type="text" oninput="onInputHandler(event)" onpropertychange="onPropertyChangeHandler(event)"/>
+			<div class="submitButton">
+				<button class="urlSubmitButton" id="urlSubmit" onclick="getURL()"><font size="4px" face="Varela Round">Generate</font> <i style="font-size: 20px;" class="fa fa-arrow-circle-right"></i></button>
+			</div><br><br>
+		</div>
+		<div style="width: fit-content; position: relative; left: 45px; top: 6px;" id="reCAPTCHA"></div>
+	</div>
+	<footer>
+		Copyright <script>document.write(new Date().getFullYear())</script> <a class="linkTxt" href="https://intoyour.space" target="_blank">potatopotat0</a>. All Rights Reserved.
 	</footer>
 </body>
 </html>
