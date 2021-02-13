@@ -6,15 +6,7 @@ PHP驱动的短网址API。
 
 因为众所周知的我太菜的原因，这个的代码实现十分粗暴，还写的特别丑。
 
-## 安装
-
-在数据库中建立 `links` table，包含 `shortLink`, `longLink` 和 `time` 三个 column。
-
-`./api/index.php` 中填入数据库名、用户名、密码。
-
-`./js/script.js` 中替换 Google reCAPTCHA 用户端密钥。
-
-`./api/web/index.php` 中填入数据库名、用户名、密码，替换 Google reCAPTCHA 服务端密钥。
+Google reCAPTCHA 目前是形式主义验证，~~大家就当没看见API~~。
 
 ## 错误码
 

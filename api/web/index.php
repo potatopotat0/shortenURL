@@ -75,7 +75,12 @@ if($verifyRes['success'] == false) {
 		'msg'	=> $errmsg
 	);
 } else {
-	$sqll = "SELECT * FROM `links` WHERE `longLink` LIKE '{$_GET['url']}'";
+	$des = $_GET['url'];
+	if(!(strpos($des, "http://") !== false) && !(strpos($des, "https://") !== false)) {
+		if(strpos($des, "http://") !== false) $des = "http://" . $des;
+		else $des = "https://" . $des;
+	}
+	$sqll = "SELECT * FROM `links` WHERE `longLink` LIKE '{$des}'";
 	$res = $DBCONN -> query($sqll);
 	header("Content-type: text/json");
 	if ($res -> num_rows > 0) {
@@ -83,7 +88,7 @@ if($verifyRes['success'] == false) {
 		$result = array(
 			'code'	=> 114,
 			'msg'	=> 'succeed',
-			'url'	=> 'https://ptt.pub/api/?rd=' . $row['shortLink']
+			'url'	=> 'https://ptt.pub/' . $row['shortLink']
 		);
 	} else {
 		$path = dechex((time() * rand()) % 15658736 + 1118481);
@@ -115,7 +120,7 @@ if($verifyRes['success'] == false) {
 			$result = array(
 				'code'	=> 114,
 				'msg'	=> 'succeed',
-				'url'	=> 'https://ptt.pub/api/?rd=' . $path
+				'url'	=> 'https://ptt.pub/' . $path
 			);
 			$sql = "INSERT INTO `links` (`shortLink`, `longLink`, `time`)
 			VALUES ('" . $path . "', '" . urldecode($des) . "', CURRENT_TIMESTAMP)";

@@ -19,17 +19,26 @@ if($DBCONN -> connect_error) {
  */
 ini_set('memory_limit', '536870912');
 if(!($_GET['rd'] == "")) {
-	$sql = "SELECT * FROM `links` WHERE `shortLink` LIKE '{$_GET['rd']}'";
+	$des = $_GET['rd'];
+	if(!(strpos($des, "/")) !== false) {
+		$des = substr($des, -6);
+	}
+	$sql = "SELECT * FROM `links` WHERE `shortLink` LIKE '{$des}'";
 	$result = $DBCONN -> query($sql);
 	if ($result -> num_rows > 0) {
 		$row = $result -> fetch_assoc();
 		echo "<script>!function(){window.location.replace('" . $row['longLink'] . "');}()</script>";
 	} else {
-		echo "<script>!function(){window.location.replace('https://ptt.pub');}()</script>";
+		echo "<script>!function(){window.location.replace('https://ptt.pub/404.htm');}()</script>";
 	}
 	$DBCONN -> close();
 } else {
-	$sqll = "SELECT * FROM `links` WHERE `longLink` LIKE '{$_GET['url']}'";
+	$des = $_GET['url'];
+	if(!(strpos($des, "http://") !== false) && !(strpos($des, "https://") !== false)) {
+		if(strpos($des, "http://") !== false) $des = "http://" . $des;
+		else $des = "https://" . $des;
+	}
+	$sqll = "SELECT * FROM `links` WHERE `longLink` LIKE '{$des}'";
 	$res = $DBCONN -> query($sqll);
 	header("Content-type: text/json");
 	if ($res -> num_rows > 0) {
@@ -37,7 +46,7 @@ if(!($_GET['rd'] == "")) {
 		$result = array(
 			'code'	=> 114,
 			'msg'	=> 'succeed',
-			'url'	=> 'https://ptt.pub/api/?rd=' . $row['shortLink']
+			'url'	=> 'https://ptt.pub/' . $row['shortLink']
 		);
 	} else {
 		$path = dechex((time() * rand()) % 15658736 + 1118481);
@@ -69,7 +78,7 @@ if(!($_GET['rd'] == "")) {
 			$result = array(
 				'code'	=> 114,
 				'msg'	=> 'succeed',
-				'url'	=> 'https://ptt.pub/api/?rd=' . $path
+				'url'	=> 'https://ptt.pub/' . $path
 			);
 			$sql = "INSERT INTO `links` (`shortLink`, `longLink`, `time`)
 			VALUES ('" . $path . "', '" . urldecode($des) . "', CURRENT_TIMESTAMP)";
