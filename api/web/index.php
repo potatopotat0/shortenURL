@@ -91,7 +91,19 @@ if($verifyRes['success'] == false) {
 			'url'	=> 'https://ptt.pub/' . $row['shortLink']
 		);
 	} else {
-		$path = dechex((time() * rand()) % 15658736 + 1118481);
+		for($i = 1; $i <= 30; ++$i) {
+			if($i == 30) {
+				$result = array(
+					'code' => -1,
+					'msg'  => "Failure generating a short link, please try again later or contact site administrator." 
+				);
+				die(json_encode($result));
+			}
+			$path = dechex((time() * rand()) % 15658736 + 1118481);
+			$sql = "SELECT * FROM `links` WHERE `shortLink` LIKE '{$path}'";
+			$result = $DBCONN -> query($sql);
+			if(!($result -> num_rows > 0)) break;
+		}
 		$des = $_GET['url'];
 		$ch = curl_init($des);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
@@ -99,7 +111,7 @@ if($verifyRes['success'] == false) {
 		curl_exec($ch);
 		if($des == "") {
 			$result = array(
-				'code'	=> -1,
+				'code'	=> 401,
 				'msg'	=> "No URL to be shortened."
 			);
 		} elseif(strpos($des, "ptt.pub") !== false) {
