@@ -5,11 +5,7 @@ $USERNAME = "<USERNAME>";
 $PASSWORD = "<PASSWORD>";
 $DBCONN = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
 if($DBCONN -> connect_error) {
-	$res = array(
-		'msg'  => "Database connection failure: " . $DBCONN -> connect_error,
-		'code' => 501
-	);
-	die(json_encode($result));
+    die("Database connection failure: " . $DBCONN -> connect_error);
 }
 
 
@@ -19,28 +15,17 @@ if($DBCONN -> connect_error) {
  */
 ini_set('memory_limit', '536870912');
 if(!($_GET['rd'] == "")) {
-	$des = $_GET['rd'];
-	if(!(strpos($des, "/")) !== false) {
-		$des = substr($des, -6);
-	}
-	$sql = "SELECT * FROM `links` WHERE `shortLink` LIKE '{$des}'";
+	$sql = "SELECT * FROM `links` WHERE `shortLink` LIKE '{$_GET['rd']}'";
 	$result = $DBCONN -> query($sql);
 	if ($result -> num_rows > 0) {
 		$row = $result -> fetch_assoc();
 		echo "<script>!function(){window.location.replace('" . $row['longLink'] . "');}()</script>";
 	} else {
-		$file = fopen("../404.htm", "r", );
-		$content = fread($file, filesize("../404.htm"));
-		echo $content;
+		echo "<script>!function(){window.location.replace('https://ptt.pub');}()</script>";
 	}
 	$DBCONN -> close();
 } else {
-	$des = $_GET['url'];
-	if(!(strpos($des, "http://") !== false) && !(strpos($des, "https://") !== false)) {
-		if(strpos($des, "http://") !== false) $des = "http://" . $des;
-		else $des = "https://" . $des;
-	}
-	$sqll = "SELECT * FROM `links` WHERE `longLink` LIKE '{$des}'";
+	$sqll = "SELECT * FROM `links` WHERE `longLink` LIKE '{$_GET['url']}'";
 	$res = $DBCONN -> query($sqll);
 	header("Content-type: text/json");
 	if ($res -> num_rows > 0) {
@@ -48,22 +33,10 @@ if(!($_GET['rd'] == "")) {
 		$result = array(
 			'code'	=> 114,
 			'msg'	=> 'succeed',
-			'url'	=> 'https://ptt.pub/' . $row['shortLink']
+			'url'	=> 'https://ptt.pub/api/?rd=' . $row['ShortLink']
 		);
 	} else {
-		for($i = 1; $i <= 30; ++$i) {
-			if($i == 30) {
-				$result = array(
-					'code' => -1,
-					'msg'  => "Failure generating a short link, please try again later or contact site administrator." 
-				);
-				die(json_encode($result));
-			}
-			$path = dechex((time() * rand()) % 15658736 + 1118481);
-			$sql = "SELECT * FROM `links` WHERE `shortLink` LIKE '{$path}'";
-			$result = $DBCONN -> query($sql);
-			if(!($result -> num_rows > 0)) break;
-		}
+		$path = dechex((time() * rand()) % 15658736 + 1118481);
 		$des = $_GET['url'];
 		$ch = curl_init($des);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
@@ -71,7 +44,7 @@ if(!($_GET['rd'] == "")) {
 		curl_exec($ch);
 		if($des == "") {
 			$result = array(
-				'code'	=> 401,
+				'code'	=> -1,
 				'msg'	=> "No URL to be shortened."
 			);
 		} elseif(strpos($des, "ptt.pub") !== false) {
@@ -86,16 +59,15 @@ if(!($_GET['rd'] == "")) {
 			);
 		} else {
 			if(!(strpos($des, "http://") !== false) && !(strpos($des, "https://") !== false)) {
-				if(strpos($des, "http://") !== false) $des = "http://" . $des;
-				else $des = "https://" . $des;
+				$des = "http://" . $des;
 			}
 			$result = array(
 				'code'	=> 114,
 				'msg'	=> 'succeed',
-				'url'	=> 'https://ptt.pub/' . $path
+				'url'	=> 'https://ptt.pub/api/?rd=' . $path
 			);
-			$sql = "INSERT INTO `links` (`shortLink`, `longLink`, `time`)
-			VALUES ('" . $path . "', '" . urldecode($des) . "', CURRENT_TIMESTAMP)";
+			$sql = "INSERT INTO `links` (`shortLink`, `longLink`, `time`, `requestIP`, `requestUA`)
+			VALUES ('{$path}', '" . urldecode($des) . "', CURRENT_TIMESTAMP, '{$_SERVER["REMOTE_ADDR"]}', '{$_SERVER['HTTP_USER_AGENT']}')";
 			if($DBCONN -> query($sql) == false) die("Error: " . $sql . "\n" . $DBCONN -> error);
 		}
 	}
