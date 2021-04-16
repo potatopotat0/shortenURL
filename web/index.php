@@ -30,7 +30,7 @@ function curl_post($url,$array){
 ini_set('memory_limit', '536870912');
 header("Content-type: text/json");
 $post_data = array(
-    'secret' => '<YOUR GOOGLE RECAPTCHA KEY>',
+    'secret' => $GOOGLEKEY,
     'response' => $_GET['key']
 );
 $verifyRes = json_decode(curl_post('https://www.google.com/recaptcha/api/siteverify', $post_data), true);
