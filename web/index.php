@@ -1,8 +1,5 @@
 <?php
-$SERVER = "localhost";
-$DATABASE = "<DATABASE>";
-$USERNAME = "<USERNAME>";
-$PASSWORD = "<PASSWORD>";
+include '../config.php';
 $DBCONN = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
 if($DBCONN -> connect_error) {
 	$res = array(

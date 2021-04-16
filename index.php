@@ -1,8 +1,5 @@
 <?php
-$SERVER = "localhost";
-$DATABASE = "<DATABASE>";
-$USERNAME = "<USERNAME>";
-$PASSWORD = "<PASSWORD>";
+include 'config.php';
 $DBCONN = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
 if($DBCONN -> connect_error) {
 	$res = array(
@@ -29,7 +26,7 @@ if(!($_GET['rd'] == "")) {
 		$row = $result -> fetch_assoc();
 		echo "<script>!function(){window.location.replace('" . $row['longLink'] . "');}()</script>";
 	} else {
-		$file = fopen("../404.htm", "r", );
+		$file = fopen("404.htm", "r", );
 		$content = fread($file, filesize("../404.htm"));
 		echo $content;
 	}

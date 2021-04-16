@@ -1,0 +1,5 @@
+<?php
+$SERVER = "localhost";
+$DATABASE = "<DATABASE>";
+$USERNAME = "<USERNAME>";
+$PASSWORD = "<PASSWORD>";
