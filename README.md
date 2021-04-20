@@ -8,6 +8,19 @@ PHP驱动的短网址API。
 
 Google reCAPTCHA 目前是形式主义验证，~~大家就当没看见API~~。
 
+## Before Installation
+
+Please create your own `config.php` with following:
+
+```php
+<?php
+$SERVER = "localhost";
+$DATABASE = "<DATABASE>";
+$USERNAME = "<USERNAME>";
+$PASSWORD = "<PASSWORD>";
+$GOOGLEKEY = "<GOOGLE RECAPTCHA KEY | LEAVE BLANK IF NOT USING WEB GENERATOR>";
+```
+
 ## 错误码
 
 `-1` ：短链接随机路径生成失败。
