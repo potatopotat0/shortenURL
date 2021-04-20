@@ -102,10 +102,10 @@ if($verifyRes['success'] == false) {
 			if(!($result -> num_rows > 0)) break;
 		}
 		$des = $_GET['url'];
-		$ch = curl_init($des);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_exec($ch);
+		// $ch = curl_init($des);
+		// curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// curl_exec($ch);
 		if($des == "") {
 			$result = array(
 				'code'	=> 401,
@@ -116,11 +116,11 @@ if($verifyRes['success'] == false) {
 				'code'	=> 514,
 				'msg'	=> "shortenURL does not support creating shortened URL of link \"" . $des . "\"."
 			);
-		} elseif(curl_errno($ch)) {
-			$result = array(
-				'code'	=> 404,
-				'msg'	=> "Cannot connect to the target server."
-			);
+		// } elseif(curl_errno($ch)) {
+			// $result = array(
+				// 'code'	=> 404,
+				// 'msg'	=> "Cannot connect to the target server."
+			// );
 		} else {
 			if(!(strpos($des, "http://") !== false) && !(strpos($des, "https://") !== false)) {
 				if(strpos($des, "http://") !== false) $des = "http://" . $des;
