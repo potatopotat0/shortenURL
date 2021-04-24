@@ -27,7 +27,7 @@ if(!($_GET['rd'] == "")) {
 		echo "<script>!function(){window.location.replace('" . $row['longLink'] . "');}()</script>";
 	} else {
 		$file = fopen("404.htm", "r", );
-		$content = fread($file, filesize("../404.htm"));
+		$content = fread($file, filesize("404.htm"));
 		echo $content;
 	}
 	$DBCONN -> close();
