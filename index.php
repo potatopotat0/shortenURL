@@ -89,8 +89,8 @@ if(!($_GET['rd'] == "")) {
 				'msg'	=> 'succeed',
 				'url'	=> 'https://ptt.pub/' . $path
 			);
-			$sql = "INSERT INTO `links` (`shortLink`, `longLink`, `time`)
-			VALUES ('" . $path . "', '" . urldecode($des) . "', CURRENT_TIMESTAMP)";
+			$sql = "INSERT INTO `links` (`shortLink`, `longLink`, `time`, `requestIP`, `requestUA`)
+			VALUES ('" . $path . "', '" . urldecode($des) . "', CURRENT_TIMESTAMP, '{$_SERVER['REMOTE_ADDR']}', '" . isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "" . "')";
 			if($DBCONN -> query($sql) == false) die("Error: " . $sql . "\n" . $DBCONN -> error);
 		}
 	}
