@@ -132,7 +132,7 @@ if($verifyRes['success'] == false) {
 				'url'	=> 'https://ptt.pub/' . $path
 			);
 			$sql = "INSERT INTO `links` (`shortLink`, `longLink`, `time`, `requestIP`, `requestUA`)
-			VALUES ('" . $path . "', '" . urldecode($des) . "', CURRENT_TIMESTAMP, '{$_SERVER['REMOTE_ADDR']}', '" . isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "" . "')";
+			VALUES ('{$path}', '" . urldecode($des) . "', CURRENT_TIMESTAMP, '{$_SERVER["REMOTE_ADDR"]}', '{$_SERVER['HTTP_USER_AGENT']}')";
 			if($DBCONN -> query($sql) == false) die("Error: " . $sql . "\n" . $DBCONN -> error);
 		}
 	}
