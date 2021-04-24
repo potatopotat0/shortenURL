@@ -24,11 +24,9 @@ if(!($_GET['rd'] == "")) {
 	$result = $DBCONN -> query($sql);
 	if ($result -> num_rows > 0) {
 		$row = $result -> fetch_assoc();
-		echo "<script>!function(){window.location.replace('" . $row['longLink'] . "');}()</script>";
+		echo "<script>!function(){window.location.replace('{$row['longLink']}');}()</script>";
 	} else {
-		$file = fopen("404.htm", "r", );
-		$content = fread($file, filesize("404.htm"));
-		echo $content;
+		echo "<script>!function(){window.location.replace('../404.htm');}()</script>";
 	}
 	$DBCONN -> close();
 } else {
